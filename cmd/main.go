@@ -206,6 +206,7 @@ func validateProductForm(name, descr, price, idStr string, checkName bool, page 
 func renderProductList(c echo.Context, page Page) error {
 	c.Response().Header().Set(HeaderReplaceURL, "/product-list")
 	c.Response().Header().Set(HeaderRetarget, "#main")
+	c.Response().Header().Set(HeaderReswap, "outerHTML")
 	return c.Render(200, "index_main", page)
 }
 

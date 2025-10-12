@@ -1,7 +1,7 @@
 {{ block "del-product-form" . }}
     <form hx-post="/product/{{ .Form.Values.id }}/delete">
         <p>The action cannot be undone.</p><button type="submit" class="btn btn-danger">Delete</button>
-        <a hx-get="/product-list" hx-push-url="true" hx-target="#main" class="btn btn-default">Cancel</a>
+        <a hx-get="/product-list" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-default" tabindex="0">Cancel</a>
     </form>
 {{ end }}
 
