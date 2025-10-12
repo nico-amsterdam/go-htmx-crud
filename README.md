@@ -1,4 +1,4 @@
-# Vue CRUD Nuxt
+# Go HTMX CRUD
 
 ## About this project
 
