@@ -1,0 +1,15 @@
+{{ block "add-product-form" . }}
+    <form hx-post="/add-product"><span>
+        {{ template "product-form-fields" . }}
+    </span>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a hx-get="/product-list" hx-push-url="true" hx-target="#main" class="btn btn-default">Cancel</a>
+    </form>
+{{ end }}
+
+{{ block "add-product" . }}
+<section id="main">
+    <h2>Add new product</h2>
+    {{ template "add-product-form" . }}
+</section>
+{{ end }}

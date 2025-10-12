@@ -1,0 +1,13 @@
+{{ block "del-product-form" . }}
+    <form hx-post="/product/{{ .Form.Values.id }}/delete">
+        <p>The action cannot be undone.</p><button type="submit" class="btn btn-danger">Delete</button>
+        <a hx-get="/product-list" hx-push-url="true" hx-target="#main" class="btn btn-default">Cancel</a>
+    </form>
+{{ end }}
+
+{{ block "del-product" . }}
+<section id="main">
+    <h2>Delete product {{ .Form.Values.name }}</h2>
+    {{ template "del-product-form" . }}
+</section>
+{{ end }}

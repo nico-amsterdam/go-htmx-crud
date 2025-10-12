@@ -1,0 +1,110 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>starter</title>
+    <meta name="description" content="GO HTMX CRUD project">
+    <script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap3-un.css">
+<script>
+document.addEventListener("DOMContentLoaded", (event) => {
+    document.body.addEventListener('htmx:beforeSwap', function(evt) {
+        if (evt.detail.xhr.status === 422) {
+            // allow 422 responses to swap as we are using this as a signal that
+            // a form was submitted with bad data and want to rerender with the
+            // errors
+            //
+            // set isError to false to avoid error logging in console
+            evt.detail.shouldSwap = true;
+            evt.detail.isError = false;
+        }
+    });
+})
+</script>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <div class="logo-wrapper">
+                <h1>Go HTMX CRUD</h1>
+                <a href="https://go.dev">
+                  <img class="js-headerLogo Header-logo" src="https://go.dev/images/go-logo-blue.svg" alt="Go" width="40px">
+                </a>
+                <a href="https://htmx.org" class="logo light">&lt;<b>/</b>&gt; htm<b>x</b></a>
+            </div>
+        </header>
+        {{ template "index_main" . }}
+    </div>
+</body>
+
+</html>
+{{ end }}
+
+{{ block "index_main" . }}
+<section id="main">
+    <div class="actions"><a hx-get="/add-product" hx-push-url="true" hx-target="#main" class="btn btn-default"><svg xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" ssr="true" title="+"
+                class="plussign iconify iconify--mdi" width="1em" height="1em" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path>
+            </svg> Add product </a></div>
+    <div class="filters row">
+        <div class="form-group col-sm-3"><label for="search-element">Search product</label><input
+                class="form-control" name="search" id="search-element" requred="" autocomplete="off"
+                value="{{ .SearchText }}"
+                hx-post="/product-list/search"
+       hx-trigger="input changed delay:300ms, keyup[key=='Enter'], load"
+       hx-target="#search-results"
+       hx-swap="outerHTML"></div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th class="col-sm-2">Actions</th>
+            </tr>
+        </thead>
+        {{ template "product-list-search-results" . }}
+    </table>
+</section>
+{{ end }}
+
+{{ block "product-list-search-results" . }}
+        <tbody id="search-results">
+            {{ range .FilteredProducts }}
+                {{ template "product" . }}
+            {{ end }}
+        </tbody>
+{{ end }}
+
+{{ block "product" . }}
+    <tr>
+       <td><a hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-target="#main" class="">{{ .Name }}</a></td>
+       <td>{{ .Descr }}</td>
+       <td>{{ .EuroPrice }} €</td>
+       <td><a hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-target="#main" class="btn btn-warning btn-xs">Edit</a>
+           <a hx-get="/product/{{ .Id }}/delete" hx-push-url="true" hx-target="#main" class="btn btn-danger btn-xs">Delete</a></td>
+    </tr>
+{{ end }}
+
+{{ block "product-form-fields" . }}
+    <div class="form-group"><label for="edit-name">Name</label><input class="form-control" id="edit-name"
+            required="" name="name" value="{{ .Form.Values.name }}">
+    {{ if .Form.Errors.name }}
+        <div style="color: red">{{ .Form.Errors.name }}</div>
+    {{ end }}
+    </div>
+
+    <div class="form-group"><label for="edit-description">Description</label><textarea class="form-control"
+id="edit-description" rows="3" name="descr">{{ .Form.Values.descr }}</textarea></div>
+    <div class="form-group"><label for="edit-price">Price €</label><input type="number" class="form-control" id="edit-price" name="price" value="{{ .Form.Values.price }}" >
+    {{ if .Form.Errors.price }}
+        <div style="color: red">{{ .Form.Errors.price }}</div>
+    {{ end }}
+    </div>
+
+{{ end }}
