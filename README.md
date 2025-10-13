@@ -2,11 +2,17 @@
 
 ## About this project
 
-Rebuild of this [Vue CRUD application](https://github.com/shershen08/vue.js-v2-crud-application) with [HTMX](https://htmx.org) and [Go](https://go.dev).
+Rebuild of this [Vue CRUD Nuxt application](https://github.com/nico-amsterdam/vue-crud-nuxt) with [HTMX](https://htmx.org) and [Go](https://go.dev).
 There is a demo on https://vue-crud-nuxt.nuxt.dev/. 
 
-You can use this project as a starter and for demo's.
+You can use this project for learning purposes and demo's.
 Download, clone or fork the source from https://github.com/nico-amsterdam/go-htmx-crud.
+
+It is deliberately kept simple, without abstractions, and all logic in main.go.
+
+A more structured example of HTMX with GO in a bigger project can be found [here](https://github.com/blackfyre/wga) 
+
+Recommended HTMX reading material: [Following up "Mother of all htmx demos"](https://david.guillot.me/en/posts/tech/following-up-mother-of-all-htmx-demos/)
 
 ## Instructions
 
