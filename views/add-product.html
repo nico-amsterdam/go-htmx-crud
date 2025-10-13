@@ -3,7 +3,7 @@
         {{ template "product-form-fields" . }}
     </span>
     <button type="submit" class="btn btn-primary">Create</button>
-    <a hx-get="/product-list" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-default" tabindex="0">Cancel</a>
+    <button type="button" hx-get="/product-list" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-default">Cancel</button>
     </form>
 {{ end }}
 

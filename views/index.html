@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         <header class="page-header">
             <div class="logo-wrapper">
                 <h1>Go HTMX CRUD</h1>
-                <a href="https://go.dev">
+                <a href="https://go.dev" target="_blank">
                   <img class="js-headerLogo Header-logo" src="https://go.dev/images/go-logo-blue.svg" alt="Go" width="40px">
                 </a>
-                <a href="https://htmx.org" class="logo light" tabindex="0">&lt;<b>/</b>&gt; htm<b>x</b></a>
+                <a href="https://htmx.org" target="_blank" class="logo light" tabindex="0">&lt;<b>/</b>&gt; htm<b>x</b></a>
             </div>
         </header>
         {{ template "index_main" . }}
@@ -45,15 +45,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 {{ block "index_main" . }}
 <section id="main">
-    <div class="actions"><a hx-get="/add-product" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-default" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg"
+    <div class="actions"><button type="button" hx-get="/add-product" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-default"><svg xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" ssr="true" title="+"
                 class="plussign iconify iconify--mdi" width="1em" height="1em" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path>
-            </svg> Add product </a></div>
+            </svg> Add product </button></div>
     <div class="filters row">
         <div class="form-group col-sm-3"><label for="search-element">Search product</label><input
                 class="form-control" name="search" id="search-element" autocomplete="off" tabindex="0"
-                value="{{ .SearchText }}"
+                value="{{ .SearchText }}" autofocus
                 hx-post="/product-list/search"
        hx-trigger="input changed delay:300ms, keyup[key=='Enter'], load"
        hx-target="#search-results"
@@ -83,17 +83,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 {{ block "product" . }}
     <tr>
-       <td><a hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" tabindex="0">{{ .Name }}</a></td>
+       <td><a hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-trigger="keyup[key=='Enter']" hx-target="#main" hx-swap="outerHTML" tabindex="0">{{ .Name }}</a></td>
        <td>{{ .Descr }}</td>
        <td>{{ .EuroPrice }} €</td>
-       <td><a hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-warning btn-xs" tabindex="0">Edit</a>
-           <a hx-get="/product/{{ .Id }}/delete" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-danger btn-xs" tabindex="0">Delete</a></td>
+       <td><button type="button" hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-warning btn-xs">Edit</button>
+           <button type="button" hx-get="/product/{{ .Id }}/delete" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-danger btn-xs">Delete</button></td>
     </tr>
 {{ end }}
 
 {{ block "product-form-fields" . }}
     <div class="form-group"><label for="edit-name">Name</label><input class="form-control" id="edit-name"
-            required="" name="name" value="{{ .Form.Values.name }}">
+            required="" name="name" value="{{ .Form.Values.name }}" autofocus>
     {{ if .Form.Errors.name }}
         <div style="color: red">{{ .Form.Errors.name }}</div>
     {{ end }}
