@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 {{ block "product" . }}
     <tr>
-       <td><a hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-trigger="keyup[key=='Enter']" hx-target="#main" hx-swap="outerHTML" tabindex="0">{{ .Name }}</a></td>
+       <td><a hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-trigger="click, keyup[key=='Enter']" hx-target="#main" hx-swap="outerHTML" tabindex="0">{{ .Name }}</a></td>
        <td>{{ .Descr }}</td>
        <td>{{ .EuroPrice }} €</td>
        <td><button type="button" hx-get="/product/{{ .Id }}/edit" hx-push-url="true" hx-target="#main" hx-swap="outerHTML" class="btn btn-warning btn-xs">Edit</button>
