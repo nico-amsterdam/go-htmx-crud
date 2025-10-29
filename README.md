@@ -9,6 +9,7 @@ You can use this project for learning purposes and demo's.
 Download, clone or fork the source from https://github.com/nico-amsterdam/go-htmx-crud.
 
 It is deliberately kept simple, without abstractions, and all logic in main.go.
+The shared state is not thread-safe.
 
 A more structured example of HTMX with GO in a bigger project can be found [here](https://github.com/blackfyre/wga) 
 
