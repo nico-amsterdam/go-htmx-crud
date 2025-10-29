@@ -39,6 +39,8 @@ const (
 	HeaderTriggerAfterSwap   = "HX-Trigger-After-Swap"
 )
 
+const productSearchCookie = "product-search"
+
 func htmxEnabled(c echo.Context) bool {
 	return c.Request().Header.Get(HeaderRequest) == "true"
 }
@@ -226,6 +228,12 @@ func main() {
 	})
 
 	e.GET("/product-list", func(c echo.Context) error {
+		cookie, err := c.Cookie(productSearchCookie)
+		if err != nil {
+			page.SearchText = ""
+		} else {
+			page.SearchText = cookie.Value
+		}
 		index_page := "index"
 		if htmxEnabled(c) {
 			index_page = "index_main"
@@ -283,6 +291,10 @@ func main() {
 	e.POST("/product-list/search", func(c echo.Context) error {
 		page.SearchText = strings.TrimRight(c.FormValue("search"), "\t\n\r ")
 		page.FilteredProducts = page.filteredProducts()
+		cookie := new(http.Cookie)
+		cookie.Name = productSearchCookie
+		cookie.Value = page.SearchText
+		c.SetCookie(cookie)
 		return c.Render(200, "product-list-search-results", page)
 	})
 
