@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 class="form-control" name="search" id="search-element" autocomplete="off" tabindex="0"
                 value="{{ .SearchText }}" autofocus
                 hx-post="/product-list/search"
-       hx-trigger="input changed delay:300ms, keyup[key=='Enter'], load"
+       hx-trigger="input changed delay:300ms, keyup[key=='Enter']"
        hx-target="#search-results"
        hx-swap="outerHTML"></div>
     </div>

@@ -311,6 +311,7 @@ func main() {
 		priceInCents := int(f64Price * 100)
 		product := newProduct(name, descr, priceInCents)
 		page.Data.Products = append(page.Data.Products, product)
+		page.FilteredProducts = page.filteredProducts()
 
 		return renderProductList(c, page)
 	})
@@ -337,6 +338,8 @@ func main() {
 		product.Name = name
 		product.Descr = descr
 		product.Price = priceInCents
+
+		page.FilteredProducts = page.filteredProducts()
 
 		return renderProductList(c, page)
 	})
