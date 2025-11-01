@@ -351,6 +351,7 @@ func main() {
 			return c.String(status, err.Error())
 		}
 		page.Data.Products = append(page.Data.Products[:index], page.Data.Products[index+1:]...)
+		page.FilteredProducts = page.filteredProducts()
 
 		c.Response().Header().Set(HeaderReplaceURL, "/product-list")
 
