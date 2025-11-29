@@ -22,7 +22,7 @@ Recommended HTMX reading material: [Following up "Mother of all htmx demos"](htt
   - go install github.com/air-verse/air@latest
   - or with asdf: asdf install air latest
 - git clone this repostory, or download the source from github
-- cd vue-crud-nuxt
+- cd go-htmx-crud
 - compile and start: 
   - during development: air
   - or run: go run cmd/main.go
